@@ -1,14 +1,16 @@
 package net.vi.ashrunica;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.vi.ashrunica.common.CommonProxy;
-import net.vi.ashrunica.common.CustomCreativeTab;
 import net.voxelindustry.brokkgui.BrokkGuiPlatform;
+import net.voxelindustry.steamlayer.common.container.CustomCreativeTab;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = AshRunica.MODID, name = AshRunica.NAME, version = AshRunica.VERSION)
@@ -21,7 +23,7 @@ public class AshRunica
     @Mod.Instance(MODID)
     public static AshRunica instance;
 
-    public static final CreativeTabs TAB_ALL = new CustomCreativeTab(MODID);
+    public static final CreativeTabs TAB_ALL = new CustomCreativeTab(MODID, () -> new ItemStack(Items.BEEF));
 
     public static Logger logger;
 
