@@ -1,0 +1,78 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url = "http://files.minecraftforge.net/maven" }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+
+version = "1.0"
+group = "net.voxelindustry.ashrunica"
+archivesBaseName = "ashrunica"
+
+sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+compileJava {
+    sourceCompatibility = targetCompatibility = '1.8'
+}
+
+minecraft {
+    version = "1.12.2-${project.forge_version}"
+    runDir = "run"
+
+    mappings = "stable_39"
+}
+
+repositories {
+    maven { // TOP
+        name 'tterrag maven'
+        url "http://maven.tterrag.com/"
+    }
+
+    maven { // JEI
+        name = 'progwml6 maven'
+        url = "http://dvs1.progwml6.com/files/maven"
+    }
+    maven {
+        name = 'ourten'
+        url = 'http://maven.ferenyr.info/artifactory/libs-release'
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok:1.18.6'
+
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:${project.top_version}"
+    deobfCompile "mezz.jei:jei_1.12.2:${project.jei_version}"
+
+    deobfCompile "net.voxelindustry:steamlayer-core:${project.steamlayer_version}"
+    deobfCompile "net.voxelindustry:brokkgui-binding-mc1.12:${project.brokkgui_version}"
+    compile "fr.ourten:teabeans:${project.teabeans_version}"
+
+    testCompile('org.junit.jupiter:junit-jupiter-api:5.3.2')
+    testCompile('org.mockito:mockito-core:2.24.0')
+    testCompile('org.mockito:mockito-junit-jupiter:2.24.0')
+    testCompile('org.assertj:assertj-core:3.10.0')
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.6'
+
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.2')
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "mcversion", project.minecraft.version
+
+    from(sourceSets.main.resources.srcDirs) {
+        include 'mcmod.info'
+
+        expand 'version': project.version, 'mcversion': project.minecraft.version
+    }
+
+    from(sourceSets.main.resources.srcDirs) {
+        exclude 'mcmod.info'
+    }
+}
