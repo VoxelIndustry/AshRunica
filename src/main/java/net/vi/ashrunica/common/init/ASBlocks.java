@@ -1,6 +1,7 @@
 package net.vi.ashrunica.common.init;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
@@ -9,6 +10,9 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.vi.ashrunica.AshRunica;
+import net.vi.ashrunica.common.block.BlockFactory;
+import net.vi.ashrunica.common.block.BlockRuneTest;
+import net.vi.ashrunica.common.tile.TileRuneTest;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,6 +28,10 @@ public class ASBlocks
         BLOCKS = new LinkedHashMap<>();
 
         MinecraftForge.EVENT_BUS.register(new ASBlocks());
+
+        registerBlock(BlockFactory.init(new BlockRuneTest(Material.CIRCUITS), "testrune"));
+
+        registerTile(TileRuneTest.class, "testrune");
     }
 
     @SubscribeEvent

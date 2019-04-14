@@ -8,13 +8,16 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.vi.ashrunica.AshRunica;
+import net.vi.ashrunica.client.render.RuneTestRender;
 import net.vi.ashrunica.common.CommonProxy;
 import net.vi.ashrunica.common.init.ASBlocks;
 import net.vi.ashrunica.common.init.ASItems;
+import net.vi.ashrunica.common.tile.TileRuneTest;
 import net.voxelindustry.brokkgui.style.StylesheetManager;
 import net.voxelindustry.steamlayer.common.model.IItemModelProvider;
 import net.voxelindustry.steamlayer.common.model.IModelProvider;
@@ -34,6 +37,8 @@ public class ClientProxy extends CommonProxy
         ASItems.ITEMS.stream().filter(IItemModelProvider.class::isInstance)
                 .filter(item -> ((IItemModelProvider) item).hasSpecialModel())
                 .forEach(item -> ((IItemModelProvider) item).registerVariants());
+
+        ClientRegistry.bindTileEntitySpecialRenderer(TileRuneTest.class, new RuneTestRender());
     }
 
     @Override
