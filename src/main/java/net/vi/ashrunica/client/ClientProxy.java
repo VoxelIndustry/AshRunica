@@ -15,8 +15,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.vi.ashrunica.AshRunica;
 import net.vi.ashrunica.client.render.RuneTestRender;
 import net.vi.ashrunica.common.CommonProxy;
-import net.vi.ashrunica.common.init.ASBlocks;
-import net.vi.ashrunica.common.init.ASItems;
+import net.vi.ashrunica.common.init.ARBlocks;
+import net.vi.ashrunica.common.init.ARItems;
 import net.vi.ashrunica.common.tile.TileRuneTest;
 import net.voxelindustry.brokkgui.style.StylesheetManager;
 import net.voxelindustry.steamlayer.common.model.IItemModelProvider;
@@ -34,7 +34,7 @@ public class ClientProxy extends CommonProxy
         OBJLoader.INSTANCE.addDomain(AshRunica.MODID);
         MinecraftForge.EVENT_BUS.register(this);
 
-        ASItems.ITEMS.stream().filter(IItemModelProvider.class::isInstance)
+        ARItems.ITEMS.stream().filter(IItemModelProvider.class::isInstance)
                 .filter(item -> ((IItemModelProvider) item).hasSpecialModel())
                 .forEach(item -> ((IItemModelProvider) item).registerVariants());
 
@@ -60,7 +60,7 @@ public class ClientProxy extends CommonProxy
     @SubscribeEvent
     public void onModelBake(ModelBakeEvent e)
     {
-        ASBlocks.BLOCKS.keySet().stream().filter(IModelProvider.class::isInstance).forEach(block ->
+        ARBlocks.BLOCKS.keySet().stream().filter(IModelProvider.class::isInstance).forEach(block ->
         {
             IModelProvider modelProvider = (IModelProvider) block;
 
@@ -73,7 +73,7 @@ public class ClientProxy extends CommonProxy
     @SubscribeEvent
     public void onModelRegistry(ModelRegistryEvent e)
     {
-        for (Item item : ASItems.ITEMS)
+        for (Item item : ARItems.ITEMS)
         {
             if (item instanceof IItemModelProvider && ((IItemModelProvider) item).hasSpecialModel())
                 ((IItemModelProvider) item).registerModels();

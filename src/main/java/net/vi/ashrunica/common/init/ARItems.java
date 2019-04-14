@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @GameRegistry.ObjectHolder(AshRunica.MODID)
-public class ASItems
+public class ARItems
 {
     public static List<Item> ITEMS;
 
     public static void init()
     {
         ITEMS = new ArrayList<>();
-        ITEMS.addAll(ASBlocks.BLOCKS.values());
+        ITEMS.addAll(ARBlocks.BLOCKS.values());
 
-        MinecraftForge.EVENT_BUS.register(new ASItems());
+        MinecraftForge.EVENT_BUS.register(new ARItems());
     }
 
     @SubscribeEvent

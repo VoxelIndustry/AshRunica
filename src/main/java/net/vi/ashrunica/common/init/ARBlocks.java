@@ -11,7 +11,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.vi.ashrunica.AshRunica;
 import net.vi.ashrunica.common.block.BlockFactory;
+import net.vi.ashrunica.common.block.BlockRuneDesigner;
 import net.vi.ashrunica.common.block.BlockRuneTest;
+import net.vi.ashrunica.common.tile.TileRuneDesigner;
 import net.vi.ashrunica.common.tile.TileRuneTest;
 
 import java.util.LinkedHashMap;
@@ -19,7 +21,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @GameRegistry.ObjectHolder(AshRunica.MODID)
-public class ASBlocks
+public class ARBlocks
 {
     public static Map<Block, ItemBlock> BLOCKS;
 
@@ -27,11 +29,15 @@ public class ASBlocks
     {
         BLOCKS = new LinkedHashMap<>();
 
-        MinecraftForge.EVENT_BUS.register(new ASBlocks());
+        MinecraftForge.EVENT_BUS.register(new ARBlocks());
+
+        registerBlock(BlockFactory.init(new BlockRuneDesigner(Material.WOOD), "runedesigner"));
 
         registerBlock(BlockFactory.init(new BlockRuneTest(Material.CIRCUITS), "testrune"));
 
         registerTile(TileRuneTest.class, "testrune");
+
+        registerTile(TileRuneDesigner.class, "runedesigner");
     }
 
     @SubscribeEvent
