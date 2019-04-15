@@ -143,3 +143,5 @@ fabric.properties
 
 *.aseprite
 *.ase
+
+classes/
