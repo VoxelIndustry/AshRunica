@@ -18,6 +18,8 @@ public class ARTiles
     {
         getModularInstance().addTile(new ResourceLocation(AshRunica.MODID, "runedesigner"));
 
+        getModularInstance().addTile(new ResourceLocation(AshRunica.MODID, "runesynthetizer"));
+
         getModularInstance().preloadTiles();
     }
 

@@ -12,8 +12,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.vi.ashrunica.AshRunica;
 import net.vi.ashrunica.common.block.BlockFactory;
 import net.vi.ashrunica.common.block.BlockRuneDesigner;
+import net.vi.ashrunica.common.block.BlockRuneSynthetizer;
 import net.vi.ashrunica.common.block.BlockRuneTest;
 import net.vi.ashrunica.common.tile.TileRuneDesigner;
+import net.vi.ashrunica.common.tile.TileRuneSynthetizer;
 import net.vi.ashrunica.common.tile.TileRuneTest;
 
 import java.util.LinkedHashMap;
@@ -31,13 +33,17 @@ public class ARBlocks
 
         MinecraftForge.EVENT_BUS.register(new ARBlocks());
 
+        registerBlock(BlockFactory.init(new BlockRuneTest(Material.CIRCUITS), "testrune"));
+
         registerBlock(BlockFactory.init(new BlockRuneDesigner(Material.WOOD), "runedesigner"));
 
-        registerBlock(BlockFactory.init(new BlockRuneTest(Material.CIRCUITS), "testrune"));
+        registerBlock(BlockFactory.init(new BlockRuneSynthetizer(Material.ROCK), "runesynthetizer"));
 
         registerTile(TileRuneTest.class, "testrune");
 
         registerTile(TileRuneDesigner.class, "runedesigner");
+
+        registerTile(TileRuneSynthetizer.class, "runesynthetizer");
     }
 
     @SubscribeEvent
