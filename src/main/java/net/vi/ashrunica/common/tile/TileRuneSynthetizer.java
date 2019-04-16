@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.vi.ashrunica.AshRunica;
 import net.vi.ashrunica.common.init.ARTiles;
 import net.voxelindustry.steamlayer.container.BuiltContainer;
