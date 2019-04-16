@@ -1,0 +1,7 @@
+#decrease-button:hover {
+    background-texture: url("ashrunica:textures/gui/buttons/less_hover.png");
+}
+
+#increase-button:hover {
+    background-texture: url("ashrunica:textures/gui/buttons/more_hover.png");
+}

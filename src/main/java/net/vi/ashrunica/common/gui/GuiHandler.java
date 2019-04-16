@@ -7,6 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import net.vi.ashrunica.client.gui.GuiRuneDesigner;
 import net.vi.ashrunica.client.gui.GuiRuneSynthetizer;
+import net.vi.ashrunica.common.tile.TileRuneSynthetizer;
 import net.voxelindustry.brokkgui.wrapper.impl.BrokkGuiManager;
 import net.voxelindustry.steamlayer.container.IContainerProvider;
 
@@ -33,7 +34,7 @@ public class GuiHandler implements IGuiHandler
         if (ID == 0)
             return BrokkGuiManager.getBrokkGuiContainer(new GuiRuneDesigner(((IContainerProvider) tileEntity).createContainer(player)));
         else if (ID == 1)
-                return BrokkGuiManager.getBrokkGuiContainer(new GuiRuneSynthetizer(((IContainerProvider) tileEntity).createContainer(player)));
+                return BrokkGuiManager.getBrokkGuiContainer(new GuiRuneSynthetizer((TileRuneSynthetizer) tileEntity));
         return null;
     }
 }
