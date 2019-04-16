@@ -23,6 +23,8 @@ public class GuiHandler implements IGuiHandler
         TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
         if (ID == 0)
             return ((IContainerProvider) tileEntity).createContainer(player);
+        else if (ID == 1)
+            return ((IContainerProvider) tileEntity).createContainer(player);
         return null;
     }
 

@@ -5,3 +5,7 @@
 #increase-button:hover {
     background-texture: url("ashrunica:textures/gui/buttons/more_hover.png");
 }
+
+#copies-label text {
+    color: black;
+}

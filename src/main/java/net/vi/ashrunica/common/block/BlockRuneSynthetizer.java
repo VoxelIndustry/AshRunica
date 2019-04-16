@@ -11,7 +11,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.vi.ashrunica.AshRunica;
-import net.vi.ashrunica.common.tile.TileRuneDesigner;
 import net.vi.ashrunica.common.tile.TileRuneSynthetizer;
 
 import javax.annotation.Nonnull;

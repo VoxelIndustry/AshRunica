@@ -35,11 +35,15 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     public void readFromNBT(NBTTagCompound tag)
     {
         super.readFromNBT(tag);
+
+        currentCopiesNumber = tag.getInteger("currentCopies");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
+        tag.setInteger("currentCopies", currentCopiesNumber);
+
         return super.writeToNBT(tag);
     }
 
@@ -48,8 +52,7 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     {
         super.reloadModules();
 
-        InventoryModule inventoryModule = new InventoryModule(this);
-        inventoryModule.addBasic(2);
+        InventoryModule inventoryModule = new InventoryModule(this, 2);
 
         this.addModule(inventoryModule);
     }
@@ -57,12 +60,12 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     @Override
     public BuiltContainer createContainer(EntityPlayer player)
     {
-        return new ContainerBuilder("runesynthetizer", player).player(player).inventory(8,84).hotbar(8, 142)
+        return new ContainerBuilder("runesynthetizer", player).player(player).inventory(8, 84).hotbar(8, 142)
                 .tile(this.getModule(InventoryModule.class).getInventory("basic"))
-                .slot (0, 35, 46)
+                .slot(0, 35, 46)
                 .slot(1, 125, 46)
                 .sync()
-                .syncInteger(this::getCurrentCopiesNumber,this::setCurrentCopiesNumber, "SYNC_CURRENT_COPIES")
+                .syncInteger(this::getCurrentCopiesNumber, this::setCurrentCopiesNumber, "SYNC_CURRENT_COPIES")
                 .create();
     }
 
@@ -71,7 +74,6 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     {
         if ("MODIFYNUMBERCOPIES".equals(actionID))
         {
-            //System.out.println("hello2 + " + currentCopiesNumber);
             currentCopiesNumber = Math.max(payload.getInteger("number") + currentCopiesNumber, 1);
         }
     }
