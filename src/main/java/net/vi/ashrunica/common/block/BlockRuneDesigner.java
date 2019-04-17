@@ -6,14 +6,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.vi.ashrunica.AshRunica;
+import net.vi.ashrunica.common.gui.GuiType;
 import net.vi.ashrunica.common.tile.TileRuneDesigner;
-import net.vi.ashrunica.common.tile.TileRuneTest;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +46,7 @@ public class BlockRuneDesigner extends Block implements ITileEntityProvider
     {
         if (playerIn.isSneaking())
             return false;
-        playerIn.openGui(AshRunica.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(AshRunica.instance, GuiType.RUNE_DESIGNER.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 }

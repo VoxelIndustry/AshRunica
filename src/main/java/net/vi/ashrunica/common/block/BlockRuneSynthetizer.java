@@ -11,6 +11,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.vi.ashrunica.AshRunica;
+import net.vi.ashrunica.common.gui.GuiType;
 import net.vi.ashrunica.common.tile.TileRuneSynthetizer;
 
 import javax.annotation.Nonnull;
@@ -45,7 +46,7 @@ public class BlockRuneSynthetizer extends Block implements ITileEntityProvider
     {
         if (playerIn.isSneaking())
             return false;
-        playerIn.openGui(AshRunica.instance, 1, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        playerIn.openGui(AshRunica.instance, GuiType.RUNE_SYNTHETIZER.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 }
