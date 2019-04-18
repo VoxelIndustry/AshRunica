@@ -19,6 +19,9 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     @Getter
     @Setter
     int currentCopiesNumber = 1;
+    @Getter
+    @Setter
+    boolean buildStatus = false;
 
     public TileRuneSynthetizer()
     {
@@ -37,12 +40,14 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
         super.readFromNBT(tag);
 
         currentCopiesNumber = tag.getInteger("currentCopies");
+        buildStatus = tag.getBoolean("buildStatus");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag)
     {
         tag.setInteger("currentCopies", currentCopiesNumber);
+        tag.setBoolean("buildStatus", buildStatus);
 
         return super.writeToNBT(tag);
     }
@@ -66,6 +71,7 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
                 .slot(1, 125, 46)
                 .sync()
                 .syncInteger(this::getCurrentCopiesNumber, this::setCurrentCopiesNumber, "SYNC_CURRENT_COPIES")
+                .syncBoolean(this::isBuildStatus, this::setBuildStatus, "SYNC_BUILD_STATUS")
                 .create();
     }
 
@@ -75,6 +81,11 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
         if ("MODIFYNUMBERCOPIES".equals(actionID))
         {
             currentCopiesNumber = Math.max(payload.getInteger("number") + currentCopiesNumber, 1);
+        }
+
+        if ("TRIGGERSYNTHETIZER".equals(actionID))
+        {
+            buildStatus = payload.getBoolean("setbuildstatus");
         }
     }
 }

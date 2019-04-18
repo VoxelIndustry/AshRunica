@@ -7,6 +7,7 @@ import net.vi.ashrunica.common.tile.TileRuneSynthetizer;
 import net.voxelindustry.brokkgui.data.RectBox;
 import net.voxelindustry.brokkgui.element.GuiLabel;
 import net.voxelindustry.brokkgui.element.input.GuiButton;
+import net.voxelindustry.brokkgui.element.input.GuiToggleButton;
 import net.voxelindustry.brokkgui.paint.Color;
 import net.voxelindustry.brokkgui.paint.Texture;
 import net.voxelindustry.brokkgui.panel.GuiAbsolutePane;
@@ -41,6 +42,16 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         guiDecreaseButton.setSize(10, 15);
         guiDecreaseButton.setOnActionEvent(e -> editNumberCopies(false));
 
+        GuiToggleButton guiBuildButton = new GuiToggleButton();
+        guiBuildButton.setID("build-button");
+        guiBuildButton.setSize(34, 11);
+        guiBuildButton.getSelectedProperty().addListener((obs, oldValue, newValue) -> {
+            if(newValue)
+                startBuilding();
+            else
+                cancelBuilding();
+        });
+
         GuiLabel copiesLabel = new GuiLabel();
         copiesLabel.setID("copies-label");
         copiesLabel.setTextPadding(RectBox.build().top(1).create());
@@ -49,12 +60,16 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         mainPanel.addChild(guiIncreaseButton, 98, 63);
         mainPanel.addChild(guiDecreaseButton, 68, 63);
         mainPanel.addChild(copiesLabel, 78, 64);
+        mainPanel.addChild(guiBuildButton, 72, 49);
 
         this.getContainer().addSyncCallback("SYNC_CURRENT_COPIES", sync ->
         {
-            guiDecreaseButton.setDisabled(getTile().getCurrentCopiesNumber() <= 1 ? true : false);
+            guiDecreaseButton.setDisabled(getTile().getCurrentCopiesNumber() <= 1);
             copiesLabel.setText(String.valueOf(getTile().getCurrentCopiesNumber()));
         });
+
+        this.getContainer().addSyncCallback("SYNC_BUILD_STATUS", sync ->
+                guiBuildButton.setSelected(getTile().isBuildStatus()));
 
         this.addStylesheet("/assets/ashrunica/css/runesynthetizer.css");
     }
@@ -62,5 +77,15 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
     private void editNumberCopies(boolean increase)
     {
         new ServerActionBuilder("MODIFYNUMBERCOPIES").withInt("number", increase ? 1 : -1).toTile(getTile()).send();
+    }
+
+    private void startBuilding()
+    {
+        new ServerActionBuilder("TRIGGERSYNTHETIZER").withBoolean("setbuildstatus", true).toTile(getTile()).send();
+    }
+
+    private void cancelBuilding()
+    {
+        new ServerActionBuilder("TRIGGERSYNTHETIZER").withBoolean("setbuildstatus", false).toTile(getTile()).send();
     }
 }

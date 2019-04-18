@@ -9,3 +9,22 @@
 #copies-label text {
     color: black;
 }
+
+#build-button {
+    border-width: 1;
+    border-radius: 2;
+    background-color: #CCCCCC;
+    border-color: #FFFFFF;
+}
+
+#build-button:hover {
+    background-color: #555555;
+}
+
+#build-button:active {
+    background-color: #999999;
+}
+
+#build-button:active:hover {
+    background-color: #DDDDDD;
+}
