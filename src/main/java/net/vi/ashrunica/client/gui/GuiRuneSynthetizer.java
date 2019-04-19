@@ -42,9 +42,14 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         guiDecreaseButton.setSize(10, 15);
         guiDecreaseButton.setOnActionEvent(e -> editNumberCopies(false));
 
+        GuiLabel copiesLabel = new GuiLabel();
+        copiesLabel.setID("copies-label");
+        copiesLabel.setTextPadding(RectBox.build().top(1).create());
+        copiesLabel.setSize(20, 12);
+
         GuiToggleButton guiBuildButton = new GuiToggleButton();
         guiBuildButton.setID("build-button");
-        guiBuildButton.setSize(34, 11);
+        guiBuildButton.setSize(54, 11);
         guiBuildButton.getSelectedProperty().addListener((obs, oldValue, newValue) -> {
             if(newValue)
                 startBuilding();
@@ -52,15 +57,16 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
                 cancelBuilding();
         });
 
-        GuiLabel copiesLabel = new GuiLabel();
-        copiesLabel.setID("copies-label");
-        copiesLabel.setTextPadding(RectBox.build().top(1).create());
-        copiesLabel.setSize(20, 12);
+        GuiLabel buildButtonLabel = new GuiLabel();
+        buildButtonLabel.setID("build-button-label");
+        buildButtonLabel.setTextPadding(RectBox.build().top(2).create());
+        buildButtonLabel.setSize(30, 9);
 
         mainPanel.addChild(guiIncreaseButton, 98, 63);
         mainPanel.addChild(guiDecreaseButton, 68, 63);
         mainPanel.addChild(copiesLabel, 78, 64);
-        mainPanel.addChild(guiBuildButton, 72, 49);
+        mainPanel.addChild(guiBuildButton, 61, 49);
+        mainPanel.addChild(buildButtonLabel, 74, 49);
 
         this.getContainer().addSyncCallback("SYNC_CURRENT_COPIES", sync ->
         {
@@ -69,7 +75,10 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         });
 
         this.getContainer().addSyncCallback("SYNC_BUILD_STATUS", sync ->
-                guiBuildButton.setSelected(getTile().isBuildStatus()));
+                {
+                    guiBuildButton.setSelected(getTile().isBuildStatus());
+                    buildButtonLabel.setText(getTile().isBuildStatus() ? "Cancel" : "Synthetize");
+                });
 
         this.addStylesheet("/assets/ashrunica/css/runesynthetizer.css");
     }

@@ -13,18 +13,18 @@
 #build-button {
     border-width: 1;
     border-radius: 2;
-    background-color: #CCCCCC;
+    background-color: #02ad00;
     border-color: #FFFFFF;
 }
 
 #build-button:hover {
-    background-color: #555555;
+    background-color: #02ea00;
 }
 
 #build-button:active {
-    background-color: #999999;
+    background-color: #af0000;
 }
 
 #build-button:active:hover {
-    background-color: #DDDDDD;
+    background-color: #e90000;
 }
