@@ -8,4 +8,10 @@ public class TileRuneTest extends TileBase
     {
         
     }
+
+    @Override
+    public boolean shouldRenderInPass(int pass)
+    {
+        return pass == 0 || pass == 1;
+    }
 }

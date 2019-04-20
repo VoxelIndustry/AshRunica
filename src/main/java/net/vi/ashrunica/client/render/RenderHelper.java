@@ -47,14 +47,51 @@ public class RenderHelper
         }
     }
 
-    public static void drawTexturedRect(Tessellator tessellator, float xStart, float yStart, float width,
-                                        float height, float zLevel, float uMin, float vMin, float uMax, float vMax)
+    public static void drawTexRect(Tessellator tessellator, float xStart, float yStart, float width,
+                                   float height, float zLevel, float uMin, float vMin, float uMax, float vMax)
     {
         tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
         tessellator.getBuffer().pos(xStart, yStart + height, zLevel).tex(uMin, vMax).endVertex();
         tessellator.getBuffer().pos(xStart + width, yStart + height, zLevel).tex(uMax, vMax).endVertex();
         tessellator.getBuffer().pos(xStart + width, yStart, zLevel).tex(uMax, vMin).endVertex();
         tessellator.getBuffer().pos(xStart, yStart, zLevel).tex(uMin, vMin).endVertex();
+        tessellator.draw();
+    }
+
+    public static void drawTexRectWithColor(Tessellator tessellator, float xStart, float yStart, float width,
+                                            float height, float zLevel, float uMin, float vMin, float uMax,
+                                            float vMax, Color color)
+    {
+        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_COLOR);
+        tessellator.getBuffer().pos(xStart, yStart + height, zLevel).tex(uMin, vMax)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart + width, yStart + height, zLevel).tex(uMax, vMax)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart + width, yStart, zLevel).tex(uMax, vMin)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart, yStart, zLevel).tex(uMin, vMin)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.draw();
+    }
+
+    public static void drawTexRectWithColorAndBrightness(Tessellator tessellator, float xStart, float yStart,
+                                                         float width, float height, float zLevel, float uMin,
+                                                         float vMin, float uMax, float vMax, Color color,
+                                                         int brightness)
+    {
+        tessellator.getBuffer().begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX_LMAP_COLOR);
+        tessellator.getBuffer().pos(xStart, yStart + height, zLevel).tex(uMin, vMax)
+                .lightmap(brightness, brightness)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart + width, yStart + height, zLevel).tex(uMax, vMax)
+                .lightmap(brightness, brightness)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart + width, yStart, zLevel).tex(uMax, vMin)
+                .lightmap(brightness, brightness)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+        tessellator.getBuffer().pos(xStart, yStart, zLevel).tex(uMin, vMin)
+                .lightmap(brightness, brightness)
+                .color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
         tessellator.draw();
     }
 
@@ -88,11 +125,13 @@ public class RenderHelper
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA,
                 GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE,
                 GlStateManager.DestFactor.ZERO);
+        GlStateManager.depthMask(false);
+
     }
 
     public static void disableAlpha()
     {
         GlStateManager.disableAlpha();
-        GlStateManager.disableBlend();
+        //    GlStateManager.disableBlend();
     }
 }
