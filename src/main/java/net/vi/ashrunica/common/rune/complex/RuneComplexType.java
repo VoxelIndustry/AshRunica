@@ -1,23 +1,23 @@
 package net.vi.ashrunica.common.rune.complex;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Value;
 import net.minecraft.nbt.NBTTagCompound;
 import net.vi.ashrunica.common.rune.RuneSlot;
+import net.voxelindustry.brokkgui.paint.Color;
 
 import java.util.EnumSet;
 
 @Value
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class RuneComplexType
 {
     private final String name;
+    private final Color  color;
+    private final int    iconIndex;
 
     private final EnumSet<RuneSlot> compatibleSlots;
-
-    private RuneComplexType(String name, EnumSet<RuneSlot> compatibleSlots)
-    {
-        this.name = name;
-        this.compatibleSlots = compatibleSlots;
-    }
 
     public static Builder builder()
     {
@@ -41,6 +41,8 @@ public class RuneComplexType
     public static class Builder
     {
         private String name;
+        private Color  color;
+        private int    iconIndex;
 
         private EnumSet<RuneSlot> compatibleSlots = EnumSet.noneOf(RuneSlot.class);
 
@@ -56,9 +58,21 @@ public class RuneComplexType
             return this;
         }
 
+        public Builder color(Color color)
+        {
+            this.color = color;
+            return this;
+        }
+
+        public Builder iconIndex(int iconIndex)
+        {
+            this.iconIndex = iconIndex;
+            return this;
+        }
+
         public RuneComplexType create()
         {
-            return new RuneComplexType(name, compatibleSlots);
+            return new RuneComplexType(name, color, iconIndex, compatibleSlots);
         }
     }
 }

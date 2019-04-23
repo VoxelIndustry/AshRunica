@@ -5,6 +5,8 @@ import com.google.common.collect.Table;
 import net.minecraft.nbt.NBTTagCompound;
 import net.vi.ashrunica.common.rune.RuneSlot;
 import net.vi.ashrunica.common.rune.complex.impl.InventoryComplex;
+import net.voxelindustry.brokkgui.paint.Color;
+import net.voxelindustry.brokkgui.paint.ColorConstants;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,12 +36,16 @@ public class RuneComplexes
         this.complexTypes = new HashMap<>();
         this.complexesData = HashBasedTable.create();
 
-        this.elementSpell = RuneComplexType.builder().name("element-spell").slot(RuneSlot.MAIN).create();
-        this.inventory = RuneComplexType.builder().name("element-inventory").slot(RuneSlot.SPACE).create();
-        this.memory = RuneComplexType.builder().name("element-memory").slot(RuneSlot.SPACE).create();
-        this.cognition = RuneComplexType.builder().name("element-cognition").slot(RuneSlot.SPACE).create();
-        this.teleport = RuneComplexType.builder().name("element-teleport")
-                .slot(RuneSlot.MAIN).slot(RuneSlot.INTERIOR).create();
+        this.elementSpell = RuneComplexType.builder().name("element-spell").slot(RuneSlot.MAIN)
+                .color(Color.RED).iconIndex(0).create();
+        this.inventory = RuneComplexType.builder().name("element-inventory").slot(RuneSlot.SPACE)
+                .color(Color.BLUE).iconIndex(0).create();
+        this.memory = RuneComplexType.builder().name("element-memory").slot(RuneSlot.SPACE)
+                .color(ColorConstants.getColor("pink")).iconIndex(0).create();
+        this.cognition = RuneComplexType.builder().name("element-cognition").slot(RuneSlot.SPACE)
+                .color(ColorConstants.getColor("khaki")).iconIndex(0).create();
+        this.teleport = RuneComplexType.builder().name("element-teleport").slot(RuneSlot.MAIN).slot(RuneSlot.INTERIOR)
+                .color(ColorConstants.getColor("peachpuff")).iconIndex(0).create();
 
         this.complexTypes.put(elementSpell.getName(), elementSpell);
         this.complexTypes.put(inventory.getName(), inventory);
