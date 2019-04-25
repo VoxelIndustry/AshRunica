@@ -11,6 +11,7 @@ import net.voxelindustry.brokkgui.element.input.GuiToggleButton;
 import net.voxelindustry.brokkgui.paint.Color;
 import net.voxelindustry.brokkgui.paint.Texture;
 import net.voxelindustry.brokkgui.panel.GuiAbsolutePane;
+import net.voxelindustry.brokkgui.panel.GuiPane;
 import net.voxelindustry.brokkgui.wrapper.container.BrokkGuiContainer;
 import net.voxelindustry.steamlayer.container.BuiltContainer;
 import net.voxelindustry.steamlayer.network.action.ServerActionBuilder;
@@ -57,6 +58,10 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
                 cancelBuilding();
         });
 
+        GuiPane progressPane = new GuiPane();
+        progressPane.setID("progress-pane");
+        progressPane.setSize(0, 11); // from 0 to 30 width
+
         GuiLabel buildButtonLabel = new GuiLabel();
         buildButtonLabel.setID("build-button-label");
         buildButtonLabel.setTextPadding(RectBox.build().top(2).create());
@@ -66,6 +71,7 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         mainPanel.addChild(guiDecreaseButton, 68, 63);
         mainPanel.addChild(copiesLabel, 78, 64);
         mainPanel.addChild(guiBuildButton, 61, 49);
+        mainPanel.addChild(progressPane, 61, 49);
         mainPanel.addChild(buildButtonLabel, 74, 49);
 
         this.getContainer().addSyncCallback("SYNC_CURRENT_COPIES", sync ->
@@ -75,10 +81,14 @@ public class GuiRuneSynthetizer extends GuiBase<TileRuneSynthetizer>
         });
 
         this.getContainer().addSyncCallback("SYNC_BUILD_STATUS", sync ->
-                {
-                    guiBuildButton.setSelected(getTile().isBuildStatus());
-                    buildButtonLabel.setText(getTile().isBuildStatus() ? "Cancel" : "Synthetize");
-                });
+        {
+            guiBuildButton.setSelected(getTile().isBuildStatus());
+            buildButtonLabel.setText(getTile().isBuildStatus() ? "Cancel" : "Synthetize");
+        });
+
+        this.getContainer().addSyncCallback("SYNC_BUILD_PROGRESS", sync -> {
+            progressPane.setSize(54 * getTile().getBuildProgress(), progressPane.getHeight());
+        });
 
         this.addStylesheet("/assets/ashrunica/css/runesynthetizer.css");
     }

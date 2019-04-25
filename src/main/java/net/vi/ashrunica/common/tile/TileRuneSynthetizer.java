@@ -22,6 +22,9 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     @Getter
     @Setter
     boolean buildStatus = false;
+    @Getter
+    @Setter
+    float buildProgress = 0f;
 
     public TileRuneSynthetizer()
     {
@@ -32,6 +35,16 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     public void update()
     {
         super.update();
+        if (isClient())
+            return;
+        if (buildProgress >= 1f)
+        {
+            buildStatus = false;
+            //CreateARune() here TODO
+            buildProgress = 0f;
+        }
+        if (buildStatus == true)
+            buildProgress += 0.05;
     }
 
     @Override
@@ -41,6 +54,7 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
 
         currentCopiesNumber = tag.getInteger("currentCopies");
         buildStatus = tag.getBoolean("buildStatus");
+        buildProgress = tag.getFloat("buildProgress");
     }
 
     @Override
@@ -48,6 +62,7 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
     {
         tag.setInteger("currentCopies", currentCopiesNumber);
         tag.setBoolean("buildStatus", buildStatus);
+        tag.setFloat("buildProgress", buildProgress);
 
         return super.writeToNBT(tag);
     }
@@ -72,6 +87,7 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
                 .sync()
                 .syncInteger(this::getCurrentCopiesNumber, this::setCurrentCopiesNumber, "SYNC_CURRENT_COPIES")
                 .syncBoolean(this::isBuildStatus, this::setBuildStatus, "SYNC_BUILD_STATUS")
+                .syncFloat(this::getBuildProgress, this::setBuildProgress, "SYNC_BUILD_PROGRESS")
                 .create();
     }
 
@@ -86,6 +102,8 @@ public class TileRuneSynthetizer extends TileTickingModular implements IContaine
         if ("TRIGGERSYNTHETIZER".equals(actionID))
         {
             buildStatus = payload.getBoolean("setbuildstatus");
+            if (buildStatus == false)
+                buildProgress = 0f;
         }
     }
 }

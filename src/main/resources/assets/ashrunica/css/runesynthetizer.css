@@ -28,3 +28,7 @@
 #build-button:active:hover {
     background-color: #e90000;
 }
+
+#progress-pane {
+    background-color: #888888 50%;
+}
